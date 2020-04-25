@@ -37,7 +37,7 @@ const Chat: React.FC<ChatProps> = (props) => {
 			setChats(newChats);
 		});
 		pusher.connection.bind('connected', () => {
-			axios.post('/messages').then((resp) => {
+			axios.get('/api/messages').then((resp) => {
 				const newChats = resp.data.messages as ChatType[];
 				setChats(newChats);
 			});
@@ -56,7 +56,7 @@ const Chat: React.FC<ChatProps> = (props) => {
 			const chat = { user, message: val, timestamp: +new Date() };
 
 			e.currentTarget.value = '';
-			axios.post('/message', chat);
+			axios.post('/api/messages', chat);
 		}
 	};
 

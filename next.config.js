@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const cors = require('cors');
 require('dotenv').config();
 
 module.exports = {
