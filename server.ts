@@ -37,6 +37,21 @@ app
 			return handler(req, res);
 		});
 
+		const chatHistory = { messages: [] as any[] };
+
+		server.post('/message', (req, res, next) => {
+			const { user = null, message = '', timestamp = +new Date() } = req.body;
+			const sentimentScore = sentiment.analyze(message).score;
+			const chat = { user, message, timestamp, sentiment: sentimentScore };
+
+			chatHistory.messages.push(chat);
+			pusher.trigger('chat-room', 'new-message', { chat });
+		});
+
+		server.post('/messages', (req, resp, next) => {
+			resp.json({ ...chatHistory, status: 'success' });
+		});
+
 		server.listen(3000, (err: any) => {
 			if (err) throw err;
 			console.log(`> Ready on http://localhost:${port}`);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Layout from '../components/Layout';
+import { Chat, Layout } from '../components';
 
-const IndexPage: React.FC<{}> = (props) => {
+const IndexPage: React.FC = (props) => {
 	const [ user, setUser ] = useState<any>(null);
 
 	const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -43,7 +43,9 @@ const IndexPage: React.FC<{}> = (props) => {
 						</div>
 					</section>
 
-					<section className="col-md-4 position-relative d-flex flex-wrap h-100 align-items-start align-content-between bg-white px-0" />
+					<section className="col-md-4 position-relative d-flex flex-wrap h-100 align-items-start align-content-between bg-white px-0">
+						{user && <Chat activeUser={user} />}
+					</section>
 				</div>
 			</main>
 		</Layout>
